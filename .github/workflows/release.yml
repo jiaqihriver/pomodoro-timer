@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build-macos:
     runs-on: macos-latest
@@ -31,10 +34,13 @@ jobs:
         with:
           tagName: ${{ github.ref_name }}
           releaseName: 'PomodoroTimer ${{ github.ref_name }}'
-          releaseBody: '🍅 番茄钟桌面应用\n\n## 下载安装\n- macOS: 下载 .dmg 文件\n- Windows: 下载 .msi 或 .exe 文件'
+          releaseBody: '🍅 番茄钟桌面应用
+
+## 下载安装
+- macOS: 下载 .dmg 文件
+- Windows: 下载 .msi 或 .exe 文件'
           releaseDraft: false
           prerelease: false
-          args: --target x86_64-apple-darwin
 
   build-windows:
     runs-on: windows-latest
@@ -59,7 +65,10 @@ jobs:
         with:
           tagName: ${{ github.ref_name }}
           releaseName: 'PomodoroTimer ${{ github.ref_name }}'
-          releaseBody: '🍅 番茄钟桌面应用\n\n## 下载安装\n- macOS: 下载 .dmg 文件\n- Windows: 下载 .msi 或 .exe 文件'
+          releaseBody: '🍅 番茄钟桌面应用
+
+## 下载安装
+- macOS: 下载 .dmg 文件
+- Windows: 下载 .msi 或 .exe 文件'
           releaseDraft: false
           prerelease: false
-          args: --target x86_64-pc-windows-msvc

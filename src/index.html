@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>番茄钟 - Pomodoro Timer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>🍅 番茄钟</h1>
+    </header>
+
+    <main class="main-content">
+      <div class="timer-section">
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="work">专注工作</button>
+          <button class="mode-tab" data-mode="shortBreak">短休息</button>
+          <button class="mode-tab" data-mode="longBreak">长休息</button>
+        </div>
+
+        <div class="timer-display">
+          <svg class="timer-ring" viewBox="0 0 200 200">
+            <circle class="timer-ring-bg" cx="100" cy="100" r="90"/>
+            <circle class="timer-ring-progress" cx="100" cy="100" r="90" id="progressRing"/>
+          </svg>
+          <div class="timer-text" id="timerDisplay">25:00</div>
+        </div>
+
+        <div class="session-indicator" id="sessionIndicator">
+          <span class="session-dot filled"></span>
+          <span class="session-dot filled"></span>
+          <span class="session-dot filled"></span>
+          <span class="session-dot"></span>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" id="startBtn">
+            <span class="btn-icon">▶</span>
+            开始
+          </button>
+          <button class="btn btn-secondary" id="resetBtn">
+            <span class="btn-icon">↻</span>
+            重置
+          </button>
+          <button class="btn btn-secondary" id="skipBtn">
+            <span class="btn-icon">⏭</span>
+            跳过
+          </button>
+        </div>
+      </div>
+
+      <div class="stats-section" id="statsSection">
+        <div class="stat-card">
+          <div class="stat-value" id="todaySessions">0</div>
+          <div class="stat-label">今日专注</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalSessions">0</div>
+          <div class="stat-label">总专注次数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalTime">0h</div>
+          <div class="stat-label">累计时长</div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <button class="settings-btn" id="settingsBtn">
+        ⚙️ 设置
+      </button>
+    </footer>
+
+    <div class="settings-overlay" id="settingsOverlay">
+      <div class="settings-panel">
+        <div class="settings-header">
+          <h2>⚙️ 设置</h2>
+          <button class="close-btn" id="closeSettings">×</button>
+        </div>
+
+        <div class="settings-content">
+          <div class="setting-group">
+            <h3>⏱️ 时间设置（分钟）</h3>
+            <div class="setting-item">
+              <label>专注时长</label>
+              <input type="number" id="workDuration" min="1" max="60" value="25">
+            </div>
+            <div class="setting-item">
+              <label>短休息时长</label>
+              <input type="number" id="shortBreak" min="1" max="30" value="5">
+            </div>
+            <div class="setting-item">
+              <label>长休息时长</label>
+              <input type="number" id="longBreak" min="1" max="60" value="15">
+            </div>
+            <div class="setting-item">
+              <label>长休息前次数</label>
+              <input type="number" id="sessionsBeforeLongBreak" min="1" max="10" value="4">
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>🔄 自动开始</h3>
+            <div class="setting-item toggle-item">
+              <label>自动开始休息</label>
+              <label class="toggle">
+                <input type="checkbox" id="autoStartBreaks">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item toggle-item">
+              <label>自动开始工作</label>
+              <label class="toggle">
+                <input type="checkbox" id="autoStartWork">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>🔔 提醒设置</h3>
+            <div class="setting-item toggle-item">
+              <label>启用声音</label>
+              <label class="toggle">
+                <input type="checkbox" id="soundEnabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item toggle-item">
+              <label>桌面通知</label>
+              <label class="toggle">
+                <input type="checkbox" id="notificationEnabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>🎨 外观</h3>
+            <div class="theme-options">
+              <button class="theme-btn active" data-theme="rose" style="background: #E8B4B8;"></button>
+              <button class="theme-btn" data-theme="blue" style="background: #A8B5C4;"></button>
+              <button class="theme-btn" data-theme="green" style="background: #B8D4C4;"></button>
+              <button class="theme-btn" data-theme="purple" style="background: #C4B8D4;"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-footer">
+          <button class="btn btn-primary" id="saveSettings">保存设置</button>
+          <button class="btn btn-secondary" id="resetSettings">恢复默认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

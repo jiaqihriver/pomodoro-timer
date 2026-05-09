@@ -11,11 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install dependencies
         run: |
+          npm install
           brew install create-dmg
 
       - name: Build Tauri app
@@ -35,8 +41,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0

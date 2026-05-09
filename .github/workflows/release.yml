@@ -6,21 +6,46 @@ on:
       - 'v*'
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
+  build-macos:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - name: Build
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: |
+          brew install create-dmg
+
+      - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__
-          releaseName: 'PomodoroTimer v__VERSION__'
-          releaseBody: '番茄钟桌面应用 - Windows/macOS 双平台'
+          tagName: ${{ github.ref_name }}
+          releaseName: 'PomodoroTimer ${{ github.ref_name }}'
+          releaseBody: '🍅 番茄钟桌面应用\n\n## 下载安装\n- macOS: 下载 .dmg 文件\n- Windows: 下载 .msi 或 .exe 文件'
           releaseDraft: false
           prerelease: false
+          args: --target x86_64-apple-darwin
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'PomodoroTimer ${{ github.ref_name }}'
+          releaseBody: '🍅 番茄钟桌面应用\n\n## 下载安装\n- macOS: 下载 .dmg 文件\n- Windows: 下载 .msi 或 .exe 文件'
+          releaseDraft: false
+          prerelease: false
+          args: --target x86_64-pc-windows-msvc
